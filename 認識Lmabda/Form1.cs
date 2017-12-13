@@ -68,11 +68,34 @@ namespace 認識Lmabda
             //新增一個路徑/ 下載後檔案的名稱
         }
 
+
+        int[] arr = { 11, 24, 65, 43, 112 };
+        List<int> arr1 = new List<int>();
         private void btnodd_Click(object sender, EventArgs e)
         {
-            int[] arr = { 11, 24, 65, 43, 112 };
+            
             int OddCount = arr.Count(n => n % 2 == 1);
             MessageBox.Show($"{OddCount} 個奇數");
+
+            //LINQ
+            //var query = from n in arr 
+            //            where n % 2 == 1
+            //            select n;
+            //listBox1.DataSource = query.ToList();
+
+            int MinOdd = arr.Where(n => n % 2 == 1).OrderBy(n => n).First();//條件後，排序
+            int MaxOdd = arr.Where(n => n % 2 == 1).OrderBy(n => n).Last();
+
+            MessageBox.Show($"最小奇數：{MinOdd},最大奇數：{MaxOdd} ");
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            foreach(int s in textBox1.Text)
+            {
+                arr1.Add(s);
+                label1.Text = "加入成功";
+            }
         }
 
         private void btnCreateButton_Click(object sender, EventArgs e)
@@ -86,6 +109,14 @@ namespace 認識Lmabda
             Controls.Add(btn);
         }
 
-        
+        private void btnString_Click(object sender, EventArgs e)
+        {
+            string[] arr = { "hello", "test", "msit117", "joelee" };
+            listBox1.DataSource = arr.Where(s => s.Length >= 5).ToArray();
+
+            listBox1.DataSource = arr.Where(s => s.Length >= 5 && s.StartsWith("m")).ToArray();
+
+            listBox1.DataSource = arr.Where(s => s.Length >= 5).Where(s=>s.StartsWith("msit")).ToArray();
+        }
     }
 }
